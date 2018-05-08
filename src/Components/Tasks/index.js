@@ -1,8 +1,11 @@
 import React, { Fragment } from 'react'
-import { Grid, Paper, Typography, List } from 'material-ui'
-import { ListItem, ListItemText } from 'material-ui/list'
-// import LeftPane from './LeftPane.jsx'
-// import RightPane from './RightPane.jsx'
+import { Grid, Paper, Typography, List, IconButton } from 'material-ui'
+import {
+  ListItem,
+  ListItemText,
+  ListItemSecondaryAction
+} from 'material-ui/list'
+import { Delete } from '@material-ui/icons'
 
 const styles = {
   Paper: {
@@ -14,28 +17,47 @@ const styles = {
   }
 }
 
-export default ({ tasks }) =>
+export default ({
+  tasks,
+  onSelect,
+  onDelete,
+  selectedCategory,
+  selectedTask: {
+    id,
+    title = 'Welcome!',
+    description = 'Please select a task from the list on the left'
+  }
+}) =>
 <Grid container spacing={24}>
   <Grid item sm>
     <Paper style={styles.Paper}>
-      {tasks.map(([categoty, tasks], i) =>
-        <Fragment
-          key={i}
-        >
-          <Typography
-            variant="headline"
-            style={{textTransform: 'capitalize'}}
-          >
-            {categoty}
-          </Typography>
-          <List component="ul">
-            {tasks.map(({ title }, i) =>
-              <ListItem button key={i}>
-                <ListItemText primary={title} />
-              </ListItem>
-            )}
-          </List>
-        </Fragment>
+      {tasks.map(([category, tasks]) =>
+        !selectedCategory || selectedCategory === category
+          ? <Fragment key={category}>
+              <Typography
+                variant="headline"
+                style={{textTransform: 'capitalize'}}
+              >
+                {category}
+              </Typography>
+              <List component="ul">
+                {tasks.map(({ id, title }) =>
+                  <ListItem
+                    key={id}
+                    button
+                    onClick={() => onSelect(id)}
+                  >
+                    <ListItemText primary={title} />
+                    <ListItemSecondaryAction>
+                      <IconButton onClick={() => onDelete(id)}>
+                        <Delete/>
+                      </IconButton>
+                    </ListItemSecondaryAction>
+                  </ListItem>
+                )}
+              </List>
+            </Fragment>
+          : null
       )}
     </Paper>
   </Grid>
@@ -44,13 +66,13 @@ export default ({ tasks }) =>
       <Typography
         variant="display1"
       >
-        Welcome!
+        {title}
       </Typography>
       <Typography
         variant="subheading"
         style={{marginTop: 20}}
       >
-        Please select a task from the list on the left
+        {description}
       </Typography>
     </Paper>
   </Grid>
