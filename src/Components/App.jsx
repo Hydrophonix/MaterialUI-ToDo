@@ -7,7 +7,7 @@ import { categories, tasks } from '../store.js'
 export default hot(module)(class extends Component {
   state = {
     tasks,
-    selectedTask: {}
+    selectedTask: {},
   }
 
   getTasksByCategories() {
@@ -32,7 +32,8 @@ export default hot(module)(class extends Component {
 
   handleTaskSelect = id =>
     this.setState(({ tasks }) => ({
-      selectedTask: tasks.find(task => task.id === id)
+      selectedTask: tasks.find(task => task.id === id),
+      editMode: false
     }))
 
   handleTaskCreate = task =>
@@ -42,12 +43,28 @@ export default hot(module)(class extends Component {
 
   handleTaskDelete = id =>
     this.setState(({ tasks }) => ({
-      tasks: tasks.filter(task => task.id !== id)
+      tasks: tasks.filter(task => task.id !== id),
+      editMode: false
+    }))
+
+  handleTaskSelectEdit = id =>
+    this.setState(({ tasks }) => ({
+      selectedTask: tasks.find(task => task.id === id),
+      editMode: true
+    }))
+
+  handleTaskEdit = task =>
+    this.setState(({ tasks }) => ({
+      tasks: [
+        ...tasks.filter(item => item.id !== task.id),
+        task
+      ],
+      selectedTask
     }))
 
   render() {
     const tasks = this.getTasksByCategories(),
-      { selectedCategory, selectedTask } = this.state
+      { selectedCategory, selectedTask, editMode } = this.state
 
     return(
       <Fragment>
@@ -57,11 +74,15 @@ export default hot(module)(class extends Component {
         />
 
         <Tasks
+          tasks={tasks}
+          categories={categories}
           selectedTask={selectedTask}
           selectedCategory={selectedCategory}
-          tasks={tasks}
+          editMode={editMode}
+          onEdit={this.handleTaskEdit}
           onSelect={this.handleTaskSelect}
           onDelete={this.handleTaskDelete}
+          onSelectEdit={this.handleTaskSelectEdit}
         />
 
         <Footer

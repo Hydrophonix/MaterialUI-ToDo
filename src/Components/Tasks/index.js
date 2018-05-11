@@ -5,7 +5,8 @@ import {
   ListItemText,
   ListItemSecondaryAction
 } from 'material-ui/list'
-import { Delete } from '@material-ui/icons'
+import { Edit, Delete } from '@material-ui/icons'
+import Form from './Form.jsx'
 
 const styles = {
   Paper: {
@@ -19,9 +20,14 @@ const styles = {
 
 export default ({
   tasks,
+  categories,
+  editMode,
   onSelect,
+  onSelectEdit,
   onDelete,
+  onEdit,
   selectedCategory,
+  selectedTask,
   selectedTask: {
     id,
     title = 'Welcome!',
@@ -49,8 +55,11 @@ export default ({
                   >
                     <ListItemText primary={title} />
                     <ListItemSecondaryAction>
+                      <IconButton onClick={() => onSelectEdit(id)}>
+                        <Edit />
+                      </IconButton>
                       <IconButton onClick={() => onDelete(id)}>
-                        <Delete/>
+                        <Delete />
                       </IconButton>
                     </ListItemSecondaryAction>
                   </ListItem>
@@ -63,17 +72,27 @@ export default ({
   </Grid>
   <Grid item sm>
     <Paper style={styles.Paper}>
-      <Typography
-        variant="display1"
-      >
-        {title}
-      </Typography>
-      <Typography
-        variant="subheading"
-        style={{marginTop: 20}}
-      >
-        {description}
-      </Typography>
+      {editMode
+        ? <Form
+            task={selectedTask}
+            categories={categories}
+            onSubmit={onEdit}
+          />
+        : <Fragment>
+            <Typography
+              variant="display1"
+            >
+              {title}
+            </Typography>
+            <Typography
+              variant="subheading"
+              style={{marginTop: 20}}
+            >
+              {description}
+            </Typography>
+          </Fragment>
+      }
+
     </Paper>
   </Grid>
 </Grid>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { AppBar, Toolbar, Typography } from 'material-ui'
-import CreateDialog from '../Tasks/Dialogs/Create.jsx'
+import CreateDialog from '../Tasks/Dialog.jsx'
 
 export default ({ categories, onTaskCreate }) =>
   <AppBar position="static">
