@@ -1,15 +1,14 @@
 import React, { Component, Fragment } from 'react'
-import { Add } from '@material-ui/icons'
-import { Button, Dialog } from 'material-ui'
 import {
-  DialogContent,
-  DialogContentText,
+  Button,
+  Dialog,
   DialogTitle,
-} from 'material-ui/Dialog'
+  DialogContent,
+  DialogContentText
+} from '@material-ui/core'
+import { Add } from '@material-ui/icons'
+
 import Form from './Form.jsx'
-
-
-
 
 export default class extends Component {
   state ={
@@ -44,6 +43,8 @@ export default class extends Component {
         <Dialog
           open={open}
           onClose={this.handleToggle}
+          fullWidth
+          maxWidth="xs"
         >
           <DialogTitle>
             Create a new Task

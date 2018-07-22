@@ -1,18 +1,14 @@
 import React, { Component } from 'react'
-import { TextField, Select, Button } from 'material-ui'
-import { FormControl } from 'material-ui/Form'
-import { InputLabel } from 'material-ui/Input'
-import { MenuItem } from 'material-ui/Menu'
-import { withStyles } from 'material-ui/styles'
+import {
+  TextField,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Button
+} from '@material-ui/core'
 
-
-const styles = theme => ({
-  FormControl: {
-    width: 300
-  }
-})
-
-export default withStyles(styles)(class extends Component {
+export default class extends Component {
   state = this.getInitialState()
 
   getInitialState() {
@@ -23,12 +19,6 @@ export default withStyles(styles)(class extends Component {
       description: '',
       category: ''
     }
-  }
-
-  componentWillReceiveProps({ task }) {
-    this.setState({
-      ...task
-    })
   }
 
   handleChange = name => ({ target: { value } }) =>
@@ -48,19 +38,19 @@ export default withStyles(styles)(class extends Component {
 
   render() {
     const { title, description, category } = this.state,
-          { classes, categories, task } = this.props
+          { categories, task } = this.props
 
     return(
       <form>
         <TextField
-          className={classes.FormControl}
           label="Title"
           value={title}
           onChange={this.handleChange('title')}
           margin="normal"
+          fullWidth
         />
         <br />
-        <FormControl className={classes.FormControl}>
+        <FormControl fullWidth>
           <InputLabel htmlFor="category">
             Category
           </InputLabel>
@@ -80,23 +70,24 @@ export default withStyles(styles)(class extends Component {
         </FormControl>
         <br />
         <TextField
-          className={classes.FormControl}
           multiline
           rows="4"
           label="Description"
           value={description}
           onChange={this.handleChange('description')}
           margin="normal"
+          fullWidth
         />
         <br />
         <Button
           color="primary"
           variant="raised"
           onClick={this.handleSubmit}
+          disabled={!title || !category}
         >
           {task ? 'Edit' : 'Create'}
         </Button>
       </form>
     )
   }
-})
+}

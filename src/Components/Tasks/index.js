@@ -1,18 +1,22 @@
 import React, { Fragment } from 'react'
-import { Grid, Paper, Typography, List, IconButton } from 'material-ui'
 import {
+  Grid,
+  Paper,
+  Typography,
+  List,
   ListItem,
   ListItemText,
-  ListItemSecondaryAction
-} from 'material-ui/list'
+  ListItemSecondaryAction,
+  IconButton
+} from '@material-ui/core'
 import { Edit, Delete } from '@material-ui/icons'
+import { withStyles } from '@material-ui/core/styles'
 import Form from './Form.jsx'
 
 const styles = {
   Paper: {
     padding: 20,
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 5,
     height: 500,
     overflowY: 'auto'
   }
@@ -34,8 +38,8 @@ export default ({
     description = 'Please select a task from the list on the left'
   }
 }) =>
-<Grid container spacing={24}>
-  <Grid item sm>
+<Grid container>
+  <Grid item xs={12} sm={6}>
     <Paper style={styles.Paper}>
       {tasks.map(([category, tasks]) =>
         !selectedCategory || selectedCategory === category
@@ -70,27 +74,26 @@ export default ({
       )}
     </Paper>
   </Grid>
-  <Grid item sm>
+  <Grid item xs={12} sm={6}>
     <Paper style={styles.Paper}>
+      <Typography
+        variant="display1"
+      >
+        {title}
+      </Typography>
       {editMode
         ? <Form
+            key={id}
             task={selectedTask}
             categories={categories}
             onSubmit={onEdit}
           />
-        : <Fragment>
-            <Typography
-              variant="display1"
-            >
-              {title}
-            </Typography>
-            <Typography
-              variant="subheading"
-              style={{marginTop: 20}}
-            >
-              {description}
-            </Typography>
-          </Fragment>
+        : <Typography
+            variant="subheading"
+            style={{marginTop: 20}}
+          >
+            {description}
+          </Typography>
       }
 
     </Paper>

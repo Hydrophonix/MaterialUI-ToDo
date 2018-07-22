@@ -1,5 +1,7 @@
-import React, { Component, Fragment } from 'react'
 import { hot } from 'react-hot-loader'
+import React, { Component, Fragment } from 'react'
+import { CssBaseline } from '@material-ui/core'
+
 import { Header, Footer } from './Layouts'
 import Tasks from './Tasks'
 import { categories, tasks } from '../store.js'
@@ -44,7 +46,8 @@ export default hot(module)(class extends Component {
   handleTaskDelete = id =>
     this.setState(({ tasks }) => ({
       tasks: tasks.filter(task => task.id !== id),
-      editMode: false
+      editMode: selectedTask.id === id ? false : editMode,
+      selectedTask: selectedTask.id === id ? {} : selectedTask
     }))
 
   handleTaskSelectEdit = id =>
@@ -68,6 +71,8 @@ export default hot(module)(class extends Component {
 
     return(
       <Fragment>
+        <CssBaseline />
+
         <Header
           categories={categories}
           onTaskCreate={this.handleTaskCreate}
