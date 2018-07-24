@@ -15,8 +15,8 @@ export default withWidth()(
         <Tabs
           value={index}
           onChange={onIndexSelect}
-          indicatorColor="primary"
-          textColor="primary"
+          indicatorColor="secondary"
+          textColor="secondary"
           centered={width !== 'xs'}
           scrollable={width === 'xs'}
           >

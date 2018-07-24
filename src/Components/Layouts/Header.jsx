@@ -1,14 +1,23 @@
 import React from 'react'
+
 import { AppBar, Toolbar, Typography } from '@material-ui/core'
+import { withStyles } from '@material-ui/core/styles'
+
 import CreateDialog from '../Tasks/Dialog.jsx'
 
-export default ({ categories, onTaskCreate }) =>
+const styles = {
+  flex: {
+    flex: 1
+  }
+}
+
+export default withStyles(styles)(({ classes, categories, onTaskCreate }) =>
   <AppBar position="static">
     <Toolbar>
       <Typography
         variant="headline"
         color="inherit"
-        style={{flex: 1}}
+        className={classes.flex}
       >
         ToDo Tasks Database
       </Typography>
@@ -19,3 +28,4 @@ export default ({ categories, onTaskCreate }) =>
       />
     </Toolbar>
   </AppBar>
+)

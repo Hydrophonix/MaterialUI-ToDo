@@ -46,6 +46,7 @@ export default ({
           ? <Fragment key={category}>
               <Typography
                 variant="headline"
+                color="secondary"
                 style={{textTransform: 'capitalize'}}
               >
                 {category}
@@ -59,10 +60,10 @@ export default ({
                   >
                     <ListItemText primary={title} />
                     <ListItemSecondaryAction>
-                      <IconButton onClick={() => onSelectEdit(id)}>
+                      <IconButton color="primary" onClick={() => onSelectEdit(id)}>
                         <Edit />
                       </IconButton>
-                      <IconButton onClick={() => onDelete(id)}>
+                      <IconButton color="primary" onClick={() => onDelete(id)}>
                         <Delete />
                       </IconButton>
                     </ListItemSecondaryAction>
@@ -78,6 +79,7 @@ export default ({
     <Paper style={styles.Paper}>
       <Typography
         variant="display1"
+        color="secondary"
       >
         {title}
       </Typography>

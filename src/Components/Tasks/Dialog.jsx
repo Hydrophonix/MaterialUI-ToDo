@@ -35,6 +35,7 @@ export default class extends Component {
         <Button
           mini
           variant="fab"
+          color="secondary"
           onClick={this.handleToggle}
         >
           <Add/>
